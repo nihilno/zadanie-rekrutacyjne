@@ -23,16 +23,17 @@ function Users() {
 
   const filteredUsers = users.filter(
     (user) =>
-      user.address?.city?.toLowerCase().includes(query) ||
-      user.address?.street?.toLowerCase().includes(query) ||
-      user.address?.suite?.toLowerCase().includes(query) ||
-      user.address?.zipcode?.toLowerCase().includes(query),
+      user.address?.city?.toLowerCase()?.includes(query) ||
+      user.address?.street?.toLowerCase()?.includes(query) ||
+      user.address?.suite?.toLowerCase()?.includes(query) ||
+      user.address?.zipcode?.toLowerCase()?.includes(query),
   );
 
   const sortedUsers = [...filteredUsers].sort((a, b) =>
-    a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+    (a.name ?? "").localeCompare(b.name ?? "", undefined, {
+      sensitivity: "base",
+    }),
   );
-
   if (sortOrder === "desc") sortedUsers.reverse();
   if (!users || users.length === 0) return <div>Brak użytkowników</div>;
   if (isLoading) {

@@ -1,4 +1,4 @@
-import { useUsersQuery } from "@/api/users";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -8,9 +8,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAllUsers } from "@/hooks/users";
+import { formatUuid } from "@/lib/utils";
+import { useState } from "react";
 
 function Users() {
-  const { data: users, error, isLoading } = useUsersQuery();
+  const [searchQuery, setSearchQuery] = useState("");
+  const { allUsers: users, error, isLoading } = useAllUsers();
 
   if (isLoading) {
     return <div>Ładowanie...</div>;
@@ -21,7 +25,18 @@ function Users() {
   }
 
   return (
-    <>
+    // sortowanie po nazwei asc, desc
+    // wyszukiwanie po adresie
+
+    <div>
+      <div>
+        <Input
+          placeholder="Wyszukaj po adresie"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
       <Table className="w-full">
         <TableCaption>Lista użytkowników</TableCaption>
         <TableHeader>
@@ -44,7 +59,7 @@ function Users() {
               .join(", ");
             return (
               <TableRow key={id}>
-                <TableCell className="font-medium">{id}</TableCell>
+                <TableCell className="font-medium">{formatUuid(id)}</TableCell>
                 <TableCell>{name}</TableCell>
                 <TableCell>{email}</TableCell>
                 <TableCell>{fullAddress}</TableCell>
@@ -53,7 +68,7 @@ function Users() {
           })}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 }
 

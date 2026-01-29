@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 function UsersAdd() {
-  const [addCompany, setAddCompany] = useState(true);
+  const [addCompany, setAddCompany] = useState(false);
   const { setLocalUsers } = useUsersContext();
 
   const form = useForm<AddUserType>({

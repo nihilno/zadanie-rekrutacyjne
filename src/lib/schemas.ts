@@ -26,19 +26,7 @@ const addUser = z.object({
     .refine((val) => /^\d{2}-\d{3}$/.test(val), {
       message: "Kod pocztowy musi być w formacie XX-XXX",
     }),
-  phone: z
-    .string()
-    .min(9, "Numer telefonu musi mieć 9 znaków")
-    .max(9)
-    .refine(
-      (val) => {
-        const cleaned = val.replace(/\s|-/g, "");
-        return /^(\+?\d{9,15})$/.test(cleaned);
-      },
-      {
-        message: "Nieprawidłowy numer telefonu",
-      },
-    ),
+  phone: z.string().min(9, "Numer telefonu musi mieć 9 znaków").max(9),
 
   company_name: z
     .string()

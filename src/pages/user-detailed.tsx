@@ -3,21 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Address from "@/components/user/address";
 import Company from "@/components/user/company";
 import PersonalData from "@/components/user/personal-data";
-import { useAllUsers } from "@/hooks/users";
+import { useAllUsers } from "@/hooks/use-all-users";
 import { ChevronLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 function UserDetailed() {
   const { id } = useParams<{ id: string }>();
   const { allUsers: users, error, isLoading } = useAllUsers();
-  const singleUser = users.find((user) => user.id.toString() === id);
-
-  if (!users || !singleUser || users.length === 0)
-    return (
-      <div className="grid size-full place-items-center text-2xl font-bold">
-        Brak użytkowników
-      </div>
-    );
 
   if (isLoading) {
     return (
@@ -34,6 +26,15 @@ function UserDetailed() {
       </div>
     );
   }
+
+  const singleUser = users.find((user) => user.id.toString() === id);
+
+  if (!users || !singleUser || users.length === 0)
+    return (
+      <div className="grid size-full place-items-center text-2xl font-bold">
+        Brak użytkowników
+      </div>
+    );
 
   const {
     name,

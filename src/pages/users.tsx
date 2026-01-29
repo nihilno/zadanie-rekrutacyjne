@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAllUsers } from "@/hooks/users";
+import { useAllUsers } from "@/hooks/use-all-users";
 import { formatUuid } from "@/lib/utils";
 import { ChevronsUpDown, Search } from "lucide-react";
 import { useState } from "react";

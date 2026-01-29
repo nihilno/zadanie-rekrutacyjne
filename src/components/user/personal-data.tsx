@@ -4,7 +4,7 @@ function PersonalData({ username, email, phone, website }: PersonalDataProps) {
       <h2 className="text-foreground mb-2 text-lg font-bold">Dane osobowe</h2>
       <div className="flex items-center gap-2">
         <p className="text-foreground">Nazwa użytkownika:</p>
-        <span> {username}</span>
+        <span>{username}</span>
       </div>
       <div className="flex items-center gap-2">
         <p className="text-foreground">Email:</p>

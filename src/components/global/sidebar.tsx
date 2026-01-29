@@ -12,6 +12,7 @@ import {
 import { NAVIGATION_ITEMS } from "@/constants";
 import { NavLink } from "react-router-dom";
 import Footer from "./footer";
+import { ModeToggle } from "./mode-toggle";
 
 function GlobalSidebar() {
   return (
@@ -33,6 +34,9 @@ function GlobalSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <div className="mx-auto mt-auto">
+          <ModeToggle />
+        </div>
       </SidebarContent>
       <SidebarFooter>
         <Footer />

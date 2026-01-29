@@ -11,6 +11,7 @@ const UserContext = createContext<
 
 function UsersProvider({ children }: { children: React.ReactNode }) {
   const [localUsers, setLocalUsers] = useState<User[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("users");
@@ -18,18 +19,17 @@ function UsersProvider({ children }: { children: React.ReactNode }) {
       //eslint-disable-next-line
       setLocalUsers(JSON.parse(storedUsers));
     }
+    setLoaded(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(localUsers));
-  }, [localUsers]);
+    if (loaded) {
+      localStorage.setItem("users", JSON.stringify(localUsers));
+    }
+  }, [localUsers, loaded]);
 
   function deleteLocalUser(id: string) {
-    setLocalUsers((prev) => {
-      const updated = prev.filter((user) => user.id !== id);
-      localStorage.setItem("users", JSON.stringify(updated));
-      return updated;
-    });
+    setLocalUsers((prev) => prev.filter((user) => user.id !== id));
   }
 
   return (

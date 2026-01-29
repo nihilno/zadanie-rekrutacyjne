@@ -11,16 +11,30 @@ import {
 } from "@/components/ui/table";
 import { useAllUsers } from "@/hooks/users";
 import { formatUuid } from "@/lib/utils";
-import { Search, X } from "lucide-react";
+import { ChevronsUpDown, Search, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Users() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const query = searchQuery.toLowerCase().trim();
   const { allUsers: users, error, isLoading, onDeleteUser } = useAllUsers();
 
-  if (!users || users.length === 0) return <div>Brak użytkowników</div>;
+  const filteredUsers = users.filter(
+    (user) =>
+      user.address?.city?.toLowerCase().includes(query) ||
+      user.address?.street?.toLowerCase().includes(query) ||
+      user.address?.suite?.toLowerCase().includes(query) ||
+      user.address?.zipcode?.toLowerCase().includes(query),
+  );
 
+  const sortedUsers = [...filteredUsers].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+  );
+
+  if (sortOrder === "desc") sortedUsers.reverse();
+  if (!users || users.length === 0) return <div>Brak użytkowników</div>;
   if (isLoading) {
     return <div>Ładowanie...</div>;
   }
@@ -30,16 +44,20 @@ function Users() {
   }
 
   return (
-    // sortowanie po nazwei asc, desc
-    // wyszukiwanie po adresie
-
     <div>
-      <div>
+      <div className="mb-4 flex items-center gap-2">
         <Input
           placeholder="Wyszukaj po adresie"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <Button
+          variant="outline"
+          onClick={() => setSortOrder((s) => (s === "asc" ? "desc" : "asc"))}
+        >
+          Sortuj po imieniu: {sortOrder === "asc" ? "A→Z" : "Z→A"}
+          <ChevronsUpDown className="ml-2" />
+        </Button>
       </div>
 
       <Table className="w-full">
@@ -54,7 +72,7 @@ function Users() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users?.map(({ id, name, email, address }) => {
+          {sortedUsers?.map(({ id, name, email, address }) => {
             const fullAddress = [
               address?.street,
               address?.suite,
@@ -62,7 +80,7 @@ function Users() {
               address?.zipcode,
             ]
               .filter(Boolean)
-              .join(", ");
+              .join(" ");
             return (
               <TableRow key={id}>
                 <TableCell className="font-medium">{formatUuid(id)}</TableCell>

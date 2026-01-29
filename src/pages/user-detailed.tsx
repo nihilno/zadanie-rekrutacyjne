@@ -68,14 +68,13 @@ function UserDetailed() {
 
           <h2>Adres użytkownika</h2>
           <div>
-            {address.street ?? ""}, {address.suite ?? ""}, {address.city ?? ""},{" "}
+            {address.street ?? ""} {address.suite ?? ""} {address.city ?? ""}{" "}
             {address.zipcode ?? ""}
           </div>
 
           <h2>Dane firmy</h2>
           <div>
-            {company.name ?? ""}, {company.catchPhrase ?? ""},{" "}
-            {company.bs ?? ""}
+            {company.name ?? ""} {company.catchPhrase ?? ""} {company.bs ?? ""}
           </div>
         </CardContent>
       </Card>

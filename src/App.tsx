@@ -1,13 +1,10 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { useUsersQuery } from "./api/users";
 import Layout from "./pages/layout";
+import NotFound from "./pages/not-found";
 import Users from "./pages/users";
 import UsersAdd from "./pages/users-add";
 
 function App() {
-  const { data, error, isLoading } = useUsersQuery();
-  console.log(data);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -24,6 +21,7 @@ function App() {
             <Route path="add" element={<UsersAdd />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,6 +4,7 @@ declare global {
   type User = {
     id: string;
     name: string;
+    username: string;
     email: string;
     address: Address;
     phone: string;
@@ -16,7 +17,7 @@ declare global {
     suite: string;
     city: string;
     zipcode: string;
-    geo: {
+    geo?: {
       lat: string;
       lng: string;
     };

@@ -11,7 +11,14 @@ import {
 
 function Users() {
   const { data: users, error, isLoading } = useUsersQuery();
-  console.log(users);
+
+  if (isLoading) {
+    return <div>Ładowanie...</div>;
+  }
+
+  if (error) {
+    return <div>Wystąpił błąd podczas pobierania użytkowników.</div>;
+  }
 
   return (
     <>
@@ -27,7 +34,14 @@ function Users() {
         </TableHeader>
         <TableBody>
           {users?.map(({ id, name, email, address }) => {
-            const fullAddress = `${address?.street}, ${address?.suite}, ${address?.city}, ${address?.zipcode}`;
+            const fullAddress = [
+              address?.street,
+              address?.suite,
+              address?.city,
+              address?.zipcode,
+            ]
+              .filter(Boolean)
+              .join(", ");
             return (
               <TableRow key={id}>
                 <TableCell className="font-medium">{id}</TableCell>

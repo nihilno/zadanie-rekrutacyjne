@@ -29,7 +29,16 @@ const addUser = z.object({
   phone: z
     .string()
     .min(9, "Numer telefonu musi mieć co najmniej 9 znaków")
-    .max(30),
+    .max(30)
+    .refine(
+      (val) => {
+        const cleaned = val.replace(/\s|-/g, "");
+        return /^(\+?\d{9,15})$/.test(cleaned);
+      },
+      {
+        message: "Nieprawidłowy numer telefonu",
+      },
+    ),
 
   company_name: z
     .string()

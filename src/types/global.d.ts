@@ -28,4 +28,23 @@ declare global {
     catchPhrase: string;
     bs: string;
   };
+
+  type PersonalDataProps = {
+    username: string;
+    email: string;
+    phone: string;
+    website: string;
+  };
+
+  type AddressProps = {
+    address: { street: string; suite: string; city: string; zipcode: string };
+  };
+
+  type CompanyProps = {
+    company: {
+      name: string;
+      catchPhrase: string;
+      bs: string;
+    };
+  };
 }

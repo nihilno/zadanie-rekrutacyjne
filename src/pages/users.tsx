@@ -1,3 +1,4 @@
+import DeleteBtn from "@/components/global/delete-btn";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import { useAllUsers } from "@/hooks/users";
 import { formatUuid } from "@/lib/utils";
-import { ChevronsUpDown, Search, X } from "lucide-react";
+import { ChevronsUpDown, Search } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -45,7 +46,7 @@ function Users() {
   }
 
   return (
-    <div>
+    <div className="w-full max-w-7xl">
       <div className="mb-4 flex items-center gap-2">
         <Input
           placeholder="Wyszukaj po adresie"
@@ -89,18 +90,17 @@ function Users() {
                 <TableCell>{email}</TableCell>
                 <TableCell>{fullAddress}</TableCell>
                 <TableCell className="flex items-center gap-2">
-                  <Button variant={"ghost"} size={"icon"} asChild>
+                  <Button
+                    variant={"ghost"}
+                    size={"icon"}
+                    asChild
+                    title="Zobacz użytkownika"
+                  >
                     <Link to={`/users/${id}`}>
                       <Search />
                     </Link>
                   </Button>
-                  <Button
-                    variant={"destructive"}
-                    size={"icon"}
-                    onClick={() => onDeleteUser(id)}
-                  >
-                    <X />
-                  </Button>
+                  <DeleteBtn id={id} name={name} onDeleteUser={onDeleteUser} />
                 </TableCell>
               </TableRow>
             );

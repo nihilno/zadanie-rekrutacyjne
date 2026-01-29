@@ -1,11 +1,8 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Address from "@/components/user/address";
+import Company from "@/components/user/company";
+import PersonalData from "@/components/user/personal-data";
 import { useAllUsers } from "@/hooks/users";
 import { ChevronLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
@@ -16,14 +13,26 @@ function UserDetailed() {
   const singleUser = users.find((user) => user.id.toString() === id);
 
   if (!users || !singleUser || users.length === 0)
-    return <div>Brak użytkowników</div>;
+    return (
+      <div className="grid size-full place-items-center text-2xl font-bold">
+        Brak użytkowników
+      </div>
+    );
 
   if (isLoading) {
-    return <div>Ładowanie...</div>;
+    return (
+      <div className="grid size-full place-items-center text-2xl font-bold">
+        Ładowanie...
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Wystąpił błąd podczas pobierania użytkowników.</div>;
+    return (
+      <div className="grid size-full place-items-center text-2xl font-bold">
+        Wystąpił błąd podczas pobierania użytkowników.
+      </div>
+    );
   }
 
   const {
@@ -38,44 +47,42 @@ function UserDetailed() {
   } = singleUser;
 
   return (
-    <div>
+    <div className="space-y-8">
       <Button asChild>
         <Link to="/users">
           <ChevronLeft /> Powrót
         </Link>
       </Button>
 
-      <Card>
-        <CardHeader>
+      <Card className="text-muted-foreground">
+        <CardHeader className="border-b border-dashed">
           <CardTitle>
-            Dane użytkownika
-            <CardDescription>
-              <div className="flex items-center justify-between gap-2">
-                <h1>{name}</h1>
-                <span>ID: {userId}</span>
-              </div>
-            </CardDescription>
+            <h1 className="text-foreground mb-2 text-lg font-bold">
+              Dane użytkownika
+            </h1>
+            <div className="flex items-center justify-between gap-2">
+              <h2>{name}</h2>
+              <p className="text-foreground">ID: {userId}</p>
+            </div>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <h2>Dane osobowe</h2>
-          <div>{username}</div>
-          <div>{email}</div>
-          <div>{phone}</div>
-          <div>{website}</div>
-          <div>{username}</div>
-          <div>{username}</div>
+        <CardContent className="space-y-6">
+          <PersonalData
+            username={username}
+            email={email}
+            phone={phone}
+            website={website}
+          />
 
-          <h2>Adres użytkownika</h2>
-          <div>
-            {address.street ?? ""} {address.suite ?? ""} {address.city ?? ""}{" "}
-            {address.zipcode ?? ""}
-          </div>
+          <Address address={address} />
 
-          <h2>Dane firmy</h2>
-          <div>
-            {company.name ?? ""} {company.catchPhrase ?? ""} {company.bs ?? ""}
-          </div>
+          {company.name || company.catchPhrase || company.bs ? (
+            <Company company={company} />
+          ) : (
+            <h2 className="text-destructive mb-2 text-lg font-bold">
+              Brak danych firmy
+            </h2>
+          )}
         </CardContent>
       </Card>
     </div>

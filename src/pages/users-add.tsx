@@ -73,7 +73,7 @@ function UsersAdd() {
   const isLoading = form.formState.isSubmitting;
 
   return (
-    <div className="w-full max-w-7xl space-y-16 text-center">
+    <div className="w-full max-w-7xl space-y-16">
       <h1 className="text-3xl font-bold">Dodaj użytkownika</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -101,7 +101,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="janek123" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -117,7 +117,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="jan.kowalski@example.com" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -131,7 +131,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="ul. Kwiatowa 15" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -147,7 +147,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="Apt. 4B" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -161,7 +161,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="Warszawa" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -177,7 +177,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="00-001" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -191,7 +191,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="+48 123 456 789" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -207,7 +207,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="Tested Solutions" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -221,7 +221,7 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="Innowacja twojego świata" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
@@ -235,14 +235,14 @@ function UsersAdd() {
                   <FormControl>
                     <Input {...field} placeholder="Technologia" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="line-clamp-1" />
                 </FormItem>
               )}
             />
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
             <Button
-              className="mr-4 w-full"
+              className="mr-4 w-full shrink-0!"
               type="button"
               onClick={() => setAddCompany((prev) => !prev)}
               disabled={isLoading}

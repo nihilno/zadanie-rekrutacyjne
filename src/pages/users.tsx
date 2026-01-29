@@ -1,4 +1,5 @@
 import DeleteBtn from "@/components/global/delete-btn";
+import Loader from "@/components/global/loader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -38,7 +39,7 @@ function Users() {
   if (sortOrder === "desc") sortedUsers.reverse();
   if (!users || users.length === 0) return <div>Brak użytkowników</div>;
   if (isLoading) {
-    return <div>Ładowanie...</div>;
+    return <Loader />;
   }
 
   if (error) {

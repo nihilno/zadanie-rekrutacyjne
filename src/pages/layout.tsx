@@ -8,7 +8,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <GlobalSidebar />
       <SidebarTrigger />
       <section className="flex min-h-dvh w-full flex-col">
-        <main className="mx-auto mt-32 w-full max-w-7xl">{children}</main>
+        <main className="mx-auto mt-32 w-full max-w-7xl p-2">{children}</main>
       </section>
     </>
   );

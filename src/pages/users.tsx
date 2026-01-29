@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -10,11 +11,15 @@ import {
 } from "@/components/ui/table";
 import { useAllUsers } from "@/hooks/users";
 import { formatUuid } from "@/lib/utils";
+import { Search, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Users() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { allUsers: users, error, isLoading } = useAllUsers();
+  const { allUsers: users, error, isLoading, onDeleteUser } = useAllUsers();
+
+  if (!users || users.length === 0) return <div>Brak użytkowników</div>;
 
   if (isLoading) {
     return <div>Ładowanie...</div>;
@@ -45,6 +50,7 @@ function Users() {
             <TableHead>Imię i nazwisko</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Pełny Adres</TableHead>
+            <TableHead />
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -63,6 +69,20 @@ function Users() {
                 <TableCell>{name}</TableCell>
                 <TableCell>{email}</TableCell>
                 <TableCell>{fullAddress}</TableCell>
+                <TableCell className="flex items-center gap-2">
+                  <Button variant={"ghost"} size={"icon"} asChild>
+                    <Link to={`/users/${id}`}>
+                      <Search />
+                    </Link>
+                  </Button>
+                  <Button
+                    variant={"destructive"}
+                    size={"icon"}
+                    onClick={() => onDeleteUser(id)}
+                  >
+                    <X />
+                  </Button>
+                </TableCell>
               </TableRow>
             );
           })}

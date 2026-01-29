@@ -4,6 +4,7 @@ const UserContext = createContext<
   | {
       localUsers: User[];
       setLocalUsers: React.Dispatch<React.SetStateAction<User[]>>;
+      deleteLocalUser: (id: string) => void;
     }
   | undefined
 >(undefined);
@@ -20,13 +21,21 @@ function UsersProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (localUsers.length > 0) {
-      localStorage.setItem("users", JSON.stringify(localUsers));
-    }
+    localStorage.setItem("users", JSON.stringify(localUsers));
   }, [localUsers]);
 
+  function deleteLocalUser(id: string) {
+    setLocalUsers((prev) => {
+      const updated = prev.filter((user) => user.id !== id);
+      localStorage.setItem("users", JSON.stringify(updated));
+      return updated;
+    });
+  }
+
   return (
-    <UserContext.Provider value={{ localUsers, setLocalUsers }}>
+    <UserContext.Provider
+      value={{ localUsers, setLocalUsers, deleteLocalUser }}
+    >
       {children}
     </UserContext.Provider>
   );

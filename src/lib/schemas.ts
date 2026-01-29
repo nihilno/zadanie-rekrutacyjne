@@ -28,8 +28,8 @@ const addUser = z.object({
     }),
   phone: z
     .string()
-    .min(9, "Numer telefonu musi mieć co najmniej 9 znaków")
-    .max(30)
+    .min(9, "Numer telefonu musi mieć 9 znaków")
+    .max(9)
     .refine(
       (val) => {
         const cleaned = val.replace(/\s|-/g, "");
